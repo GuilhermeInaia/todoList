@@ -1,27 +1,8 @@
-//Dia:23/09/2022 Esses códigos foram para o arquivo dao.js
-// let lista_tarefas = [
-//     {titulo: 'Tarefa a', prioridade: 'Baixa'},
-//     {titulo: 'Tarefa b', prioridade: 'Media'},
-//     {titulo: 'Tarefa c', prioridade: 'Alta'},
-// ];
-
-// function salvar(titulo, prioridade) {
-//     lista_tarefas.push({
-//         titulo: titulo,
-//         prioridade: prioridade,
-//     })
-
-// }
-
-// function buscar(){
-//     return lista_tarefas;
-// }
 
 function atualizarQuantidade() {
-    document.getElementById("numeros").innerHTML = lista_tarefas.length ++ +1 ;
+    document.getElementById("numeros").innerHTML = buscar().length;
     
 }
-
 function listaTarefas () {
     let conteudo = buscar().map(function (tarefa) {
         return` 
@@ -50,20 +31,31 @@ function addTarefa() {
         return;
     }
     
-    if(true === lista_tarefas.includes(titulo)) {
-        alert('Tarefa inclusa!')
+  let titulos = buscar().map((tarefa) => { 
+    return tarefa ? tarefa.titulo : "";
+  });
+
+  let existe = false;
+  titulos.forEach((tar) => {
+    if (true === tar.includes(titulo)){
+        existe = true;
         return;
     }
+  });
 
-    salvar(titulo, input_prioridade.value)
-    
+  if(existe == false) {
+      salvar(titulo, input_prioridade.value)
+  }else{
+    alert('Tarefa inclusa');
+  }
+
     document.getElementById("input_nova_tarefa").value = "";
     
     atualizarQuantidade();
-    
     listaTarefas();
 }
 
 // Vai acontencer assim que o usuario entrar.
 listaTarefas();
+atualizarQuantidade();
 
